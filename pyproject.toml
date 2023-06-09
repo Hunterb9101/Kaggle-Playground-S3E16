@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "build"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+[project]
+name = "kpe"
+dynamic = ["version", "optional-dependencies"]
+keywords = []
+description = "A machine learning library for predicting blueberry yields"
+requires-python = ">=3.8"
+readme = "README.md"
+dependencies = [
+    "pandas",
+    "matplotlib",
+    "scikit-learn",
+    "lightgbm",
+    "pyarrow",
+    "seaborn"
+]
+license = {text = "open source"}
+
+[project.urls]
+homepage = "https://github.com/dannbuckley/Kaggle-Playground-S3E14"
+
+[tool.setuptools.dynamic]
+version = {attr = "kpe.__version__"}
+optional-dependencies.tests = {file = ["reqs/test.txt"]}
+
+[tool.isort]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+known_first_party = ["kp"]

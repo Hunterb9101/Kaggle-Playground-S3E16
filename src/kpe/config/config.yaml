@@ -1,0 +1,146 @@
+data_tag: data-v1
+model_tag: v1
+
+data:
+  idx_cols: [id]
+  target_col: "Age"
+  cat_cols: [Sex]
+
+models:
+  lgbm:
+    # Number of models to train with the given parameters
+    num_models: 5
+    # Fully qualified model name
+    type: lightgbm.LGBMRegressor
+    kwargs:
+      n_jobs: -1
+      n_estimators: 77
+      max_depth: 5
+      learning_rate: 0.05
+      num_leaves: 30
+      min_child_samples: 28
+      colsample_bytree: 0.756937068168218
+      subsample: 0.9789161693001507
+      reg_alpha: 0.34688187118614805
+      metric: mae
+    opt:
+      model:
+        n_estimators:
+          func: int
+          kwargs:
+            low: 35
+            high: 150
+        max_depth:
+          func: categorical
+          kwargs:
+            choices: [4, 5, 6, 7]
+        num_leaves:
+          func: int
+          kwargs:
+            low: 20
+            high: 128
+        min_child_samples:
+          func: int
+          kwargs:
+            low: 5
+            high: 60
+        colsample_bytree:
+          func: float
+          kwargs:
+            low: 0.6
+            high: 1.0
+        subsample:
+          func: float
+          kwargs:
+            low: 0.75
+            high: 1.0
+        reg_alpha:
+          func: float
+          kwargs:
+            low: 0.0
+            high: 0.5
+      model_constants:
+        learning_rate: 0.1
+        n_jobs: -1
+        metric: mae
+  xgb:
+    # Number of models to train with the given parameters
+    num_models: 5
+    # Fully qualified model name
+    type: xgboost.XGBRegressor
+    kwargs:
+      n_jobs: -1
+      eval_metric: mae
+      n_estimators: 150
+      max_depth: 5
+      learning_rate: 0.05
+      max_leaves: 31
+      #min_child_samples: 20
+      colsample_bytree: 0.756937068168218
+      subsample: 0.9789161693001507
+      alpha: 0.34688187118614805
+  # lr:
+  #   num_models: 5
+  #   type: sklearn.linear_model.LinearRegression
+  #   kwargs:
+  #     fit_intercept: True
+  xgbhist:
+    # Number of models to train with the given parameters
+    num_models: 5
+    # Fully qualified model name
+    type: xgboost.XGBRegressor
+    kwargs:
+      n_jobs: -1
+      n_estimators: 125
+      tree_method: hist
+      eval_metric: mae
+      max_depth: 5
+      learning_rate: 0.05
+      max_leaves: 31
+      #min_child_samples: 20
+      colsample_bytree: 0.756937068168218
+      subsample: 0.9789161693001507
+      alpha: 0.34688187118614805
+  # rf:
+  #   num_models: 3
+  #   type: sklearn.ensemble.RandomForestRegressor
+  #   # Key word arguments that are passed to the model on training
+  #   kwargs:
+  #     criterion: absolute_error
+  #     max_depth: 3
+  #     max_samples: 1.0
+  #     min_samples_leaf: 8
+  #     min_samples_split: 16
+  #     n_estimators: 50
+  #     n_jobs: -1
+  #   # Hyperparameter optimization section
+  #   opt:
+  #     model:
+  #       # Variable kwargs are listed here
+  #       n_estimators:
+  #         func: numpy.random.randint
+  #         kwargs:
+  #           low: 75
+  #           high: 150
+  #       max_depth:
+  #         func: numpy.random.choice
+  #         kwargs:
+  #           a: [6, 7]
+  #       max_samples:
+  #         func: numpy.random.uniform
+  #         kwargs:
+  #           low: 0.8
+  #           high: 1.0
+  #       min_samples_split:
+  #         func: numpy.random.choice
+  #         kwargs:
+  #           a: [2, 4, 8, 16, 32]
+  #       min_samples_leaf:
+  #         func: numpy.random.choice
+  #         kwargs:
+  #           a: [2, 4, 8, 16, 32]
+  #     model_constants:
+  #       # Constant kwargs are listed here
+  #       criterion: absolute_error
+  #       n_jobs: -1
+
